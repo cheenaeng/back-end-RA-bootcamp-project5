@@ -7,7 +7,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
+      username: {
         type: Sequelize.STRING,
       },
       password: {
@@ -40,6 +40,9 @@ module.exports = {
       },
       concentration: {
         type: Sequelize.DECIMAL,
+      },
+      temperature: {
+        type: Sequelize.TEXT,
       },
       created_at: {
         allowNull: false,

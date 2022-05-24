@@ -1,11 +1,19 @@
+import { resolve } from 'path';
 import db from './models/index.mjs';
 
-// import your controllers here
+import initItemsController from './controllers/items.mjs';
+import initOrdersController from './controllers/orders.mjs';
 
-export default function bindRoutes(app) {
+export default function routes(app) {
+  const OrdersController = initOrdersController(db);
+  app.post('/orders', OrdersController.create);
+  app.get('/orders', OrdersController.index);
 
-  // initialize the controller functions here
-  // pass in the db for all callbacks
+  const ItemsController = initItemsController(db);
+  app.get('/items', ItemsController.index);
 
-  // define your route matchers here using app
+  // special JS page. Include the webpack index.html file
+  app.get('/home', (request, response) => {
+    response.sendFile(resolve('dist', 'main.html'));
+  });
 }
