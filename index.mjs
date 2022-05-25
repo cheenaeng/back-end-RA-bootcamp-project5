@@ -4,13 +4,14 @@ import methodOverride from 'method-override';
 import cors from 'cors';
 
 import bindRoutes from './routes.mjs';
+
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
 
 // Initialise Express instance
 const app = express();
 app.use(cors({
   credentials: true,
-  origin: FRONTEND_URL
+  origin: FRONTEND_URL,
 }));
 // Set the Express view engine to expect EJS templates
 app.set('view engine', 'ejs');
@@ -22,7 +23,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 // Expose the files stored in the public folder
 app.use(express.static('public'));
-
+app.use(express.json());
 // Bind route definitions to the Express application
 bindRoutes(app);
 

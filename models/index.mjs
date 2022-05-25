@@ -4,6 +4,7 @@ import allConfig from '../config/config.js';
 
 import initCoffeeModel from './coffee.mjs';
 import initUserModel from './users.mjs';
+import initUserCoffeeModel from './user_coffee.mjs';
 
 const env = process.env.NODE_ENV || 'development';
 
@@ -35,10 +36,11 @@ if (env === 'production') {
 
 db.User = initUserModel(sequelize, Sequelize.DataTypes);
 db.Coffee = initCoffeeModel(sequelize, Sequelize.DataTypes);
+db.User_Coffee = initUserCoffeeModel(sequelize, Sequelize.DataTypes);
 
 // one user can have many different coffees favorites,one coffee can belong to many users' favorites
-db.User.belongsToMany(db.Coffee, { through: 'user_coffees' });
-db.Coffee.belongsToMany(db.User, { through: 'user_coffees' });
+db.User.belongsToMany(db.Coffee, { through: db.User_Coffee });
+db.Coffee.belongsToMany(db.User, { through: db.User_Coffee });
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
