@@ -32,17 +32,8 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      milk: {
+      proportion: {
         type: Sequelize.JSON,
-      },
-      sugar: {
-        type: Sequelize.STRING,
-      },
-      concentration: {
-        type: Sequelize.DECIMAL,
-      },
-      temperature: {
-        type: Sequelize.TEXT,
       },
       created_at: {
         allowNull: false,

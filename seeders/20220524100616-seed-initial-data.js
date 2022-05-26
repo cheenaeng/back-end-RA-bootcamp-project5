@@ -2,34 +2,41 @@ module.exports = {
   up: async (queryInterface) => {
     const cofffeeList = [
       {
-        milk: JSON.stringify({ evaporatedMilk: false, condensedMilk: false }),
-        sugar: 'none',
-        concentration: 60,
-        temperature: 'hot',
+        proportion: JSON.stringify({
+          sugar: 'none',
+          concentration: 60,
+          ice: false,
+          milk: {
+            evapMilk: false,
+            condMilk: false,
+          },
+        }),
         created_at: new Date(),
         updated_at: new Date(),
       },
       {
-        milk: JSON.stringify({ evaporatedMilk: false, condensedMilk: true }),
-        sugar: 'none',
-        concentration: 60,
-        temperature: 'hot',
+        proportion: JSON.stringify({
+          sugar: 'none',
+          concentration: 60,
+          ice: false,
+          milk: {
+            evapMilk: false,
+            condMilk: true,
+          },
+        }),
         created_at: new Date(),
         updated_at: new Date(),
       },
       {
-        milk: JSON.stringify({ evaporatedMilk: false, condensedMilk: false }),
-        sugar: 'regular',
-        concentration: 60,
-        temperature: 'hot',
-        created_at: new Date(),
-        updated_at: new Date(),
-      },
-      {
-        milk: JSON.stringify({ evaporatedMilk: false, condensedMilk: false }),
-        sugar: 'none',
-        concentration: 60,
-        temperature: 'hot',
+        proportion: JSON.stringify({
+          sugar: 'regular',
+          concentration: 60,
+          ice: false,
+          milk: {
+            evapMilk: false,
+            condMilk: false,
+          },
+        }),
         created_at: new Date(),
         updated_at: new Date(),
       },

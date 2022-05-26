@@ -6,17 +6,8 @@ export default function initCoffeeModel(sequelize, DataTypes) {
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    milk: {
+    proportion: {
       type: DataTypes.JSON,
-    },
-    sugar: {
-      type: DataTypes.STRING,
-    },
-    concentration: {
-      type: DataTypes.DECIMAL,
-    },
-    temperature: {
-      type: DataTypes.STRING,
     },
     createdAt: {
       allowNull: false,
