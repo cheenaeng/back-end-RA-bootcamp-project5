@@ -6,4 +6,5 @@ import initCoffeeController from './controllers/coffee.mjs';
 export default function routes(app) {
   const CoffeeController = initCoffeeController(db);
   app.post('/addFavorites', CoffeeController.addFavorite);
+  app.delete('/undoFave', CoffeeController.undoFavorite);
 }
