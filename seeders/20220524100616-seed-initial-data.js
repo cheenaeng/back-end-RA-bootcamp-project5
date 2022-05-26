@@ -4,7 +4,7 @@ module.exports = {
       {
         proportion: JSON.stringify({
           sugar: 'none',
-          concentration: 60,
+          coffee: 60,
           ice: false,
           milk: {
             evapMilk: false,
@@ -17,7 +17,7 @@ module.exports = {
       {
         proportion: JSON.stringify({
           sugar: 'none',
-          concentration: 60,
+          coffee: 60,
           ice: false,
           milk: {
             evapMilk: false,
@@ -29,8 +29,8 @@ module.exports = {
       },
       {
         proportion: JSON.stringify({
-          sugar: 'regular',
-          concentration: 60,
+          sugar: 'Regular',
+          coffee: 60,
           ice: false,
           milk: {
             evapMilk: false,
