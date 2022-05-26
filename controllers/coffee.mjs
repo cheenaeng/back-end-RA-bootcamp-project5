@@ -3,7 +3,6 @@ import pkg from 'sequelize';
 const { Op } = pkg;
 
 const matchCoffeeProportion = (coffeeData, coffeeRequested) => {
-  console.log(coffeeRequested);
   const {
     coffee, ice, milk, sugar,
   } = coffeeRequested;
@@ -11,7 +10,7 @@ const matchCoffeeProportion = (coffeeData, coffeeRequested) => {
   return (
     coffeeData.coffee === coffee
     && coffeeData.ice === ice
-    && coffeeData.sugar === sugar.toLowerCase()
+    && coffeeData.sugar === sugar
     && coffeeData.milk.condMilk === milk.condMilk
     && coffeeData.milk.evapMilk === milk.evapMilk);
 };
@@ -91,8 +90,23 @@ export default function initCoffeeController(db) {
       console.log(error);
     }
   };
+  const findAllFavorite = async (request, response) => {
+    try {
+      const user = await db.User.findOne({
+        where: {
+          id: 1,
+        },
+      });
+      const coffees = await user.getCoffees();
+      const allCoffeeData = coffees.map((coffee) => coffee.proportion);
+      console.log(allCoffeeData);
+      response.send({ allCoffeeData });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return {
-    addFavorite, undoFavorite,
+    addFavorite, undoFavorite, findAllFavorite,
   };
 }
