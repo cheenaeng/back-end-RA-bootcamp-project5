@@ -1,3 +1,15 @@
+const jsSHA = require('jssha');
+
+const getHash = (str) => {
+  // eslint-disable-next-line new-cap
+  const shaObj = new jsSHA('SHA-512', 'TEXT', { encoding: 'UTF8' });
+  shaObj.update(str);
+  const hash = shaObj.getHash('HEX');
+  return hash;
+};
+
+const SALT = 'MamaRu';
+
 module.exports = {
   up: async (queryInterface) => {
     const cofffeeList = [
@@ -41,28 +53,18 @@ module.exports = {
         updated_at: new Date(),
       },
     ];
-
-    // Insert categories before items because items reference categories
-    const coffees = await queryInterface.bulkInsert(
-      'coffees',
-      cofffeeList,
-      { returning: true },
-    );
+    await queryInterface.bulkInsert('coffees', cofffeeList, { returning: true });
 
     const userList = [
       {
         username: 'jc',
-        password: '123',
+        password: getHash(`123-${SALT}`),
         display_name: 'jcRocks',
         created_at: new Date(),
         updated_at: new Date(),
       },
     ];
-    const users = await queryInterface.bulkInsert(
-      'users',
-      userList,
-      { returning: true },
-    );
+    await queryInterface.bulkInsert('users', userList, { returning: true });
   },
   down: async (queryInterface) => {
     // Delete item before category records because items reference categories
