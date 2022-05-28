@@ -98,7 +98,13 @@ export default function initCoffeeController(db) {
         },
       });
       const coffees = await user.getCoffees();
-      const allCoffeeData = coffees.map((coffee) => coffee.proportion);
+      const allCoffeeData = coffees.map((coffee) => {
+        const coffeeData = {
+          coffeeId: coffee.id,
+          proportion: coffee.proportion,
+        };
+        return coffeeData;
+      });
       console.log(allCoffeeData);
       response.send({ allCoffeeData });
     } catch (error) {
