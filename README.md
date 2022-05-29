@@ -7,3 +7,4 @@ intiial setup done - added cors
 25/5/22 - added favorite route and fixed join table
 
 270522 1000: Login & register feature done
+290522 1100: Logout & profile features done
