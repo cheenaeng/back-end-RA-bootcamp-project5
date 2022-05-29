@@ -52,7 +52,34 @@ export default function initUserController(db) {
     }
   };
 
+  const logout = async (request, response) => {
+    try {
+      response.clearCookie('user');
+      response.clearCookie('session');
+      response.send(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const passwordChange = async (request, response) => {
+    try {
+      const { user } = request.cookies;
+      const { currentPassword, newPassword } = request.body;
+
+      const passwordChangeResult = await db.User.update({ password: getHash(`${newPassword}-${SALT}`) }, {
+        where: {
+          id: user,
+          password: getHash(`${currentPassword}-${SALT}`),
+        },
+      });
+      response.send(passwordChangeResult);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
-    login, register,
+    login, register, logout, passwordChange,
   };
 }
