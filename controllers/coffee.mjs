@@ -98,15 +98,99 @@ export default function initCoffeeController(db) {
         },
       });
       const coffees = await user.getCoffees();
-      const allCoffeeData = coffees.map((coffee) => coffee.proportion);
+      const allCoffeeData = coffees.map((coffee) => {
+        const coffeeData = {
+          coffeeId: coffee.id,
+          proportion: coffee.proportion,
+        };
+        return coffeeData;
+      });
       console.log(allCoffeeData);
       response.send({ allCoffeeData });
     } catch (error) {
       console.log(error);
     }
   };
+  const addNotes = async (request, response) => {
+    try {
+      const updatedFavoritesNote = await db.User_Coffee.update(
+        {
+          notes: request.body.notes,
+        },
+        {
+          where: {
+            [Op.and]: [
+              { coffeeId: request.body.coffeeId },
+              { userId: 1 },
+            ],
+          },
+        },
+      );
+      response.send({ updatedFavoritesNote });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const seeNotes = async (request, response) => {
+    try {
+      const findNote = await db.User_Coffee.findOne(
+        {
+          where: {
+            [Op.and]: [
+              { coffeeId: request.params.id },
+              { userId: 1 },
+            ],
+          },
+        },
+      );
+      response.send({ findNote });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const editNote = async (request, response) => {
+    try {
+      const editedNote = await db.User_Coffee.update(
+        {
+          notes: request.body.editedNote,
+        },
+        {
+          where: {
+            [Op.and]: [
+              { coffeeId: request.body.coffeeId },
+              { userId: 1 },
+            ],
+          },
+        },
+      );
+      response.send({ editedNote });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const deleteNote = async (request, response) => {
+    try {
+      console.log(request.params);
+      const editedNote = await db.User_Coffee.update(
+        {
+          notes: null,
+        },
+        {
+          where: {
+            [Op.and]: [
+              { coffeeId: request.params.id },
+              { userId: 1 },
+            ],
+          },
+        },
+      );
+      response.send({ editedNote });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return {
-    addFavorite, undoFavorite, findAllFavorite,
+    addFavorite, undoFavorite, findAllFavorite, addNotes, seeNotes, editNote, deleteNote,
   };
 }
