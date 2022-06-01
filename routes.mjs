@@ -21,4 +21,5 @@ export default function routes(app) {
   app.post('/users/register', UserController.register);
   app.get('/users/logout', UserController.logout);
   app.post('/users/passwordChange', UserController.passwordChange);
+  app.get('/users/loginCheck', UserController.loginCheck);
 }
