@@ -152,7 +152,7 @@ export default function initCoffeeController(db) {
     try {
       const editedNote = await db.User_Coffee.update(
         {
-          notes: request.body.editedNote,
+          notes: request.body.notes,
         },
         {
           where: {
@@ -190,7 +190,47 @@ export default function initCoffeeController(db) {
     }
   };
 
+  const findAllNotes = async (request, response) => {
+    try {
+      const findNotes = await db.User_Coffee.findAll({
+        where: {
+          userId: 1,
+        },
+      });
+
+      console.log(findNotes);
+
+      response.send({ findNotes });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const deleteFavorite = async (request, response) => {
+    try {
+      const deleteFavorite = await db.User_Coffee.destroy({
+        where: {
+          [Op.and]: [
+            { coffeeId: request.params.id },
+            { userId: 1 },
+          ],
+        },
+      });
+      console.log(deleteFavorite);
+      response.send({ deleteFavorite });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
-    addFavorite, undoFavorite, findAllFavorite, addNotes, seeNotes, editNote, deleteNote,
+    addFavorite,
+    undoFavorite,
+    findAllFavorite,
+    addNotes,
+    seeNotes,
+    editNote,
+    deleteNote,
+    findAllNotes,
+    deleteFavorite,
   };
 }
