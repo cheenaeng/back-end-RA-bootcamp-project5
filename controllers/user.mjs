@@ -79,7 +79,24 @@ export default function initUserController(db) {
     }
   };
 
+  const loginCheck = async (request, response) => {
+    try {
+      const { user, session } = request.cookies;
+      if (user && session) {
+        if (getHash(`${user}-${SALT}`) === session) {
+          response.send(true);
+          return;
+        }
+      }
+      response.clearCookie('user');
+      response.clearCookie('session');
+      response.send(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
-    login, register, logout, passwordChange,
+    login, register, logout, passwordChange, loginCheck,
   };
 }
