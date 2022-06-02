@@ -18,6 +18,7 @@ const matchCoffeeProportion = (coffeeData, coffeeRequested) => {
 export default function initCoffeeController(db) {
   const addFavorite = async (request, response) => {
     try {
+      const { user } = request.cookies;
       // find coffee database for any coffee that has the same proportion
       const findAllCoffees = await db.Coffee.findAll();
 
@@ -33,7 +34,7 @@ export default function initCoffeeController(db) {
           proportion: request.body,
         });
         const coffeeFav = await db.User_Coffee.create({
-          userId: 1,
+          userId: request.cookies.user,
           coffeeId: newCoffee.id,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -47,7 +48,7 @@ export default function initCoffeeController(db) {
           where: {
             [Op.and]: [
               { coffeeId: foundCoffee[0].id },
-              { userId: 1 },
+              { userId: user },
             ],
           },
         });
@@ -55,7 +56,7 @@ export default function initCoffeeController(db) {
         if (!ifFaveExist) {
           console.log('does not exist');
           const newFav = await db.User_Coffee.create({
-            userId: 1,
+            userId: user,
             coffeeId: foundCoffee[0].id,
             createdAt: new Date(),
             updatedAt: new Date(),
@@ -80,7 +81,7 @@ export default function initCoffeeController(db) {
         where: {
           [Op.and]: [
             { coffeeId: foundCoffee[0].id },
-            { userId: 1 },
+            { userId: request.cookies.user },
           ],
         },
       });
@@ -94,7 +95,7 @@ export default function initCoffeeController(db) {
     try {
       const user = await db.User.findOne({
         where: {
-          id: 1,
+          id: request.cookies.user,
         },
       });
       const coffees = await user.getCoffees();
@@ -113,6 +114,7 @@ export default function initCoffeeController(db) {
   };
   const addNotes = async (request, response) => {
     try {
+      const { user } = request.cookies;
       const updatedFavoritesNote = await db.User_Coffee.update(
         {
           notes: request.body.notes,
@@ -121,7 +123,7 @@ export default function initCoffeeController(db) {
           where: {
             [Op.and]: [
               { coffeeId: request.body.coffeeId },
-              { userId: 1 },
+              { userId: user },
             ],
           },
         },
@@ -133,12 +135,13 @@ export default function initCoffeeController(db) {
   };
   const seeNotes = async (request, response) => {
     try {
+      const { user } = request.cookies;
       const findNote = await db.User_Coffee.findOne(
         {
           where: {
             [Op.and]: [
               { coffeeId: request.params.id },
-              { userId: 1 },
+              { userId: user },
             ],
           },
         },
@@ -150,6 +153,7 @@ export default function initCoffeeController(db) {
   };
   const editNote = async (request, response) => {
     try {
+      const { user } = request.cookies;
       const editedNote = await db.User_Coffee.update(
         {
           notes: request.body.notes,
@@ -158,7 +162,7 @@ export default function initCoffeeController(db) {
           where: {
             [Op.and]: [
               { coffeeId: request.body.coffeeId },
-              { userId: 1 },
+              { userId: user },
             ],
           },
         },
@@ -170,6 +174,7 @@ export default function initCoffeeController(db) {
   };
   const deleteNote = async (request, response) => {
     try {
+      const { user } = request.cookies;
       console.log(request.params);
       const editedNote = await db.User_Coffee.update(
         {
@@ -179,7 +184,7 @@ export default function initCoffeeController(db) {
           where: {
             [Op.and]: [
               { coffeeId: request.params.id },
-              { userId: 1 },
+              { userId: user },
             ],
           },
         },
@@ -192,9 +197,10 @@ export default function initCoffeeController(db) {
 
   const findAllNotes = async (request, response) => {
     try {
+      const { user } = request.cookies;
       const findNotes = await db.User_Coffee.findAll({
         where: {
-          userId: 1,
+          userId: user,
         },
       });
 
@@ -207,11 +213,12 @@ export default function initCoffeeController(db) {
   };
   const deleteFavorite = async (request, response) => {
     try {
+      const { user } = request.cookies;
       const deleteFavorite = await db.User_Coffee.destroy({
         where: {
           [Op.and]: [
             { coffeeId: request.params.id },
-            { userId: 1 },
+            { userId: user },
           ],
         },
       });
