@@ -5,6 +5,7 @@ import cors from 'cors';
 
 import bindRoutes from './routes.mjs';
 
+// to add on heroku
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
 
 // Initialise Express instance
