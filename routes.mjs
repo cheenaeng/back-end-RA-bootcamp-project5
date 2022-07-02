@@ -1,3 +1,4 @@
+import { resolve } from 'path';
 import db from './models/index.mjs';
 
 import initCoffeeController from './controllers/coffee.mjs';
@@ -22,4 +23,7 @@ export default function routes(app) {
   app.get('/users/logout', UserController.logout);
   app.post('/users/passwordChange', UserController.passwordChange);
   app.get('/users/loginCheck', UserController.loginCheck);
+  app.get('/', (request, response) => {
+    response.sendFile(resolve('dist', 'main.html'));
+  });
 }
