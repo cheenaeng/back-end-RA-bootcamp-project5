@@ -34,7 +34,7 @@ if (env === 'production') {
     // set DB_PASSWORD as an environment variable for security.
     password: process.env.DB_PASSWORD,
     host: 'localhost',
-    database: 'birding',
+    database: 'coffeeApp',
     port: 5432,
   };
   // sequelize = new Sequelize(dbName, username, password, config);
