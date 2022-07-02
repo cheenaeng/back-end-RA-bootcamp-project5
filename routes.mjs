@@ -1,4 +1,4 @@
-// import { resolve } from 'path';
+import { resolve } from 'path';
 import db from './models/index.mjs';
 
 import initCoffeeController from './controllers/coffee.mjs';
@@ -7,6 +7,9 @@ import initUserController from './controllers/user.mjs';
 export default function routes(app) {
   const CoffeeController = initCoffeeController(db);
   const UserController = initUserController(db);
+  app.get('/', (request, response) => {
+    response.sendFile(resolve('dist', 'main.html'));
+  });
 
   app.post('/addFavorites', CoffeeController.addFavorite);
   app.post('/undoFave', CoffeeController.undoFavorite);
