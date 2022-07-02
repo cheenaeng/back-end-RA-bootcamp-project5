@@ -13,23 +13,31 @@ const config = allConfig[env];
 const db = {};
 
 let sequelize;
+let pgConnectionConfigs;
 
 if (env === 'production') {
   // break apart the Heroku database url and rebuild the configs we need
 
-  const { DATABASE_URL } = process.env;
-  const dbUrl = url.parse(DATABASE_URL);
-  const username = dbUrl.auth.substr(0, dbUrl.auth.indexOf(':'));
-  const password = dbUrl.auth.substr(dbUrl.auth.indexOf(':') + 1, dbUrl.auth.length);
-  const dbName = dbUrl.path.slice(1);
+  // const { DATABASE_URL } = process.env;
+  // const dbUrl = url.parse(DATABASE_URL);
+  // const username = dbUrl.auth.substr(0, dbUrl.auth.indexOf(':'));
+  // const password = dbUrl.auth.substr(dbUrl.auth.indexOf(':') + 1, dbUrl.auth.length);
+  // const dbName = dbUrl.path.slice(1);
 
-  const host = dbUrl.hostname;
-  const { port } = dbUrl;
+  // const host = dbUrl.hostname;
+  // const { port } = dbUrl;
 
-  config.host = host;
-  config.port = port;
-
-  sequelize = new Sequelize(dbName, username, password, config);
+  // config.host = host;
+  // config.port = port;
+  pgConnectionConfigs = {
+    user: 'postgres',
+    // set DB_PASSWORD as an environment variable for security.
+    password: process.env.DB_PASSWORD,
+    host: 'localhost',
+    database: 'birding',
+    port: 5432,
+  };
+  // sequelize = new Sequelize(dbName, username, password, config);
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }

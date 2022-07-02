@@ -28,5 +28,7 @@ app.use(express.json());
 bindRoutes(app);
 
 // Set Express to listen on the given port
-const PORT = process.env.PORT || 3004;
+// const PORT = process.env.PORT || 3004;
+const PORT = process.argv[2];
+
 app.listen(PORT);
