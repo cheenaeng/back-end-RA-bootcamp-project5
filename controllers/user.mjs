@@ -22,6 +22,7 @@ export default function initUserController(db) {
       });
 
       if (loginResult) {
+        console.log(loginResult, 'login');
         response.cookie('user', loginResult.id);
         response.cookie('session', getHash(`${loginResult.id}-${SALT}`));
         response.send(true); // if successful login, send true

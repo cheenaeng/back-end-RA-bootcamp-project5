@@ -6,8 +6,8 @@ import cors from 'cors';
 import bindRoutes from './routes.mjs';
 
 // to add on heroku
-// const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
-const FRONTEND_URL = 'https://kopiracoon.netlify.app';
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
+// const FRONTEND_URL = 'https://kopiracoon.netlify.app';
 
 // Initialise Express instance
 const app = express();
