@@ -1,12 +1,7 @@
-# Rocket Academy Coding Bootcamp: Base MVC
+## About 
+KopiRAcoon is a coffee app that aims to help people order coffee(kopi) in their favorite proportion in Singapore. Singapore has a strong coffee culture and the naming of coffee is largely influenced by a myriad of dialects which may be confusing for non-locals or even the younger generation who are slowly losing touch with their native dialects. 
 
-intiial setup done - added cors
+## Deployed Link 
+Deployed link can be found at: https://kopiracoon.netlify.app/login
 
-=============PROJECT UPDATES =====================
-24/5/22- MVC done, seeded some data (kopi,kopi-o,kopi-o-kosong,kopi-c) and user data
-25/5/22 - added favorite route and fixed join table
-
-270522 1000: Login & register feature done
-290522 1100: Logout & profile features done
-010622 1845: Added login check route
-020622 0430: Added delete favorites, see all notes route
+> **Note: This is the backend repo. The frontend repo, along with features and previews of the app, can be viewed [here](https://github.com/cheenaeng/KopiRAcoon-frontend).**
